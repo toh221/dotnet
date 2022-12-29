@@ -89,7 +89,18 @@ writer.Close();
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
+foreach(string zeitpunkt in zeitpunkt)
+   if(string.IsNullOrEmpty(zeitpunkt)) {
 
+   }
+   else {
+      double value = double.Parse(zeitpunkt);
+
+   }
+
+        }
+        }
+}
     
         }
         }
