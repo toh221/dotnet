@@ -45,7 +45,8 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
- 
+ StreamReader reader2 = new StreamReader("ein.csv");
+ StreamWriter writer = new StreamWriter("aus-Sahler.csv");
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
