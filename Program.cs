@@ -7,15 +7,19 @@ Bearbeiter(in) 2:  Hueben, Tobias, 1370737
 
 using System;
 using System.Net;
+using System.IO;
 
 namespace bwi40322 {
     class Program {
+        static void Main(string[] args)
+        {
 
         /* -------------------------------------------------- 
    Stage 1: Daten vom Webserver holen
 -----------------------------------------------------*/ 
 
-
+WebClient client = new WebClient();
+string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv";
  
 /* -------------------------------------------------- 
    Stage 2: Daten von Lokal laden und aufbereiten 
@@ -29,5 +33,7 @@ namespace bwi40322 {
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
 
-    }
+    
+        }
+        }
 }
