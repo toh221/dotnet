@@ -20,10 +20,15 @@ namespace bwi40322 {
 
 WebClient client = new WebClient();
 string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv";
+
+Stream data = client.OpenRead(url);
+StreamReader reader = new StreamReader(data);
  
 /* -------------------------------------------------- 
    Stage 2: Daten von Lokal laden und aufbereiten 
 -----------------------------------------------------*/ 
+string sData = reader.ReadToEnd();
+File.WriteAllText("ein-Sahler.csv", sData);
  
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
