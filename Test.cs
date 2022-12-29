@@ -38,8 +38,7 @@ string url = "https://cbrell.de/bwi403/demo/getKlimaWS.php";
 /*****************************************************************
 Die geladenen Daten abspeichern.
 *****************************************************************/
-//Konsolenausgabe, um den Nutzer ueber den aktuellen Status zu
-informieren
+//Konsolenausgabe, um den Nutzer ueber den aktuellen Status zu informieren
 Console.WriteLine("Die Daten werden vom Webservice geladen...\n");
 //Die URL wird geoeffnet und mit dem Reader werden die Daten aus dem
 Webservice eingelesen
@@ -51,15 +50,12 @@ string sData = reader.ReadToEnd();
 //Alle Verbindungen werden geschlossen
 data.Close();
 reader.Close();
-//Konsolenausgabe, um den Nutzer ueber den aktuellen Status zu
-informieren
+//Konsolenausgabe, um den Nutzer ueber den aktuellen Status zu informieren
 Console.WriteLine("Die Daten aus dem Webservice werden in der Datei
 ein-Sahler.csv gespeichert...");
-//Das in der String-Variable Gespeicherte wird in eine neue Datei
-geschrieben
+//Das in der String-Variable Gespeicherte wird in eine neue Datei geschrieben
 File.WriteAllText("ein-Sahler.csv", sData);
-//Es wird geprueft, ob die Datei vorhanden ist und der Nutzer
-informiert
+//Es wird geprueft, ob die Datei vorhanden ist und der Nutzer informiert
 if(File.Exists("ein-Sahler.csv")) {
 Console.WriteLine("Die Datei ein-Sahler.csv wurde erstellt.\n");
 }
@@ -71,14 +67,11 @@ vorhanden.\n");
 Aus den Daten Werte extrahieren
 Daten: Temperatur
 *****************************************************************/
-//Ein Dateistrom wird erzeugt, um aus der zuvor erstellten Datei
-einlesen zu koennen
+//Ein Dateistrom wird erzeugt, um aus der zuvor erstellten Datei einlesen zu koennen
 StreamReader reader2 = new StreamReader("ein-Sahler.csv");
-//Eine neue Datei wird erstellt, in die die zu extrahierenden Daten
-geschrieben werden koennen
+//Eine neue Datei wird erstellt, in die die zu extrahierenden Daten geschrieben werden koennen
 StreamWriter writer = new StreamWriter("aus-Sahler.csv");
-//Es werden zwei Listen deklariert, um in ihnen die Werte fuer Zeit und
-Temperatur seperat zwischenzuspeichern
+//Es werden zwei Listen deklariert, um in ihnen die Werte fuer Zeit und Temperatur seperat zwischenzuspeichern
 List<string> time = new List<string> ();
 List<string> temperatures = new List<string> ();
 //Da die erste Zeile der Datei als erstes gelesen wird, ist isFirstLine
