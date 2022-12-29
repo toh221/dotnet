@@ -5,12 +5,17 @@ Bearbeiter(in) 1:  Vo, Felix, 1347526
 Bearbeiter(in) 2:  Hueben, Tobias, 1370737
 ***************************************/ 
 
+using System;
+using System.Net;
+
 namespace bwi40322 {
     class Program {
 
         /* -------------------------------------------------- 
    Stage 1: Daten vom Webserver holen
 -----------------------------------------------------*/ 
+
+
  
 /* -------------------------------------------------- 
    Stage 2: Daten von Lokal laden und aufbereiten 
