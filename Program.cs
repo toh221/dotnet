@@ -32,7 +32,7 @@ StreamReader reader = new StreamReader(data);
    Stage 2: Daten von Lokal laden und aufbereiten 
 -----------------------------------------------------*/ 
 string sData = reader.ReadToEnd();
-File.WriteAllText("ein-Sahler.csv", sData);
+File.WriteAllText("ein.csv", sData);
  
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
