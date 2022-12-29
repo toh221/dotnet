@@ -5,6 +5,10 @@ Bearbeiter(in) 1:  Vo, Felix, 1347526
 Bearbeiter(in) 2:  Hueben, Tobias, 1370737
 ***************************************/ 
 
+/*
+Wir haben C# benutzt. Warum? Ja das würde ich auch gerne wissen.
+*/
+
 using System;
 using System.Net;
 using System.IO;
