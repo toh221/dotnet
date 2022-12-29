@@ -33,7 +33,13 @@ StreamReader reader = new StreamReader(data);
 -----------------------------------------------------*/ 
 string sData = reader.ReadToEnd();
 File.WriteAllText("ein.csv", sData);
- 
+
+ if(File.Exists("ein.csv")) {
+Console.WriteLine("Die Datei ein.csv wurde erstellt.\n");
+}
+else {
+Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
+}
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
