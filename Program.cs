@@ -55,12 +55,32 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
 
  while (!reader2.EndOfStream)
  {
+   try
+   {
+      
+   
+   
    string s =reader2.ReadLine();
    string[] values = s.split(';');
-   string zeitpunkt = values[0];
-   string stromkwh = values[4];
+   string timestamp = values[0];
+   string strom = values[4];
+   string extractedData = timestamp + ";" + strom;
+   if (isFirstLine != true) {
+//Der Zeitstempel und die Temperatur werden in derjeweiligen Liste zwischengespeichert
+zeitpunkt.Add(timestamp);
+stromkwh.Add(strom);
+}
+//Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
+else {
+isFirstLine = false;
+}
+writer.WriteLine(extractedData);
  }
-
+catch (Exception e)
+   {
+      
+      continue;
+   }
 
 
  //strommittel @Fel1xVo 
