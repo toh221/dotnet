@@ -2,14 +2,14 @@
 /************************************* 
 Fertigstellung:   <Datum, wann Sie fertig geworden sind> 
 Bearbeiter(in) 1:  Vo, Felix, 1347526
-Bearbeiter(in) 2:  Hüben, Tobias, 1370737
+Bearbeiter(in) 2:  Hueben, Tobias, 1370737
 ***************************************/ 
 
 namespace bwi40322 {
     class Program {
 
         /* -------------------------------------------------- 
-   Stage 1: Daten vom Webserver holen 
+   Stage 1: Daten vom Webserver holen
 -----------------------------------------------------*/ 
  
 /* -------------------------------------------------- 
