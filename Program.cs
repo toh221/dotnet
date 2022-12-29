@@ -31,17 +31,16 @@ StreamReader reader = new StreamReader(data);
 /* -------------------------------------------------- 
    Stage 2: Daten von Lokal laden und aufbereiten 
 -----------------------------------------------------*/ 
+
+string sData = reader.ReadToEnd();
+File.WriteAllText("ein.csv", sData);
+
  if(File.Exists("ein.csv")) {
 Console.WriteLine("Die Datei ein.csv wurde erstellt.\n");
 }
 else {
 Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
-   using (StreamWriter writer = new StreamWriter("ein.csv"))
 }
-
-string sData = reader.ReadToEnd();
-File.WriteAllText("ein.csv", sData);
-
 
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
