@@ -48,11 +48,11 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
  StreamReader reader2 = new StreamReader("ein.csv");
  StreamWriter writer = new StreamWriter("aus-Sahler.csv");
 
- List<string> Zeitpunkt = new List<string> ();
- List<string> Gascbm= new List<string> ();
- List<string> Stromkwh= new List<string> ();
- List<string> = new List<string> ();
- List<string> = new List<string> ();
+ List<string> zeitpunkt = new List<string> ();
+ List<string> gascbm = new List<string> ();
+ List<string> stromkwh = new List<string> ();
+ List<string> gaskwh = new List<string> ();
+ List<string> temperatur = new List<string> ();
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
