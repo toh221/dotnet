@@ -81,7 +81,9 @@ catch (Exception e)
       
       continue;
    }
-
+ }
+reader2.Close();
+writer.Close();
 
  //strommittel @Fel1xVo 
 /* -------------------------------------------------- 
