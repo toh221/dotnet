@@ -60,6 +60,10 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
    string zeitpunkt = values[0];
    string stromkwh = values[4];
  }
+
+
+
+ //strommittel @Fel1xVo 
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
