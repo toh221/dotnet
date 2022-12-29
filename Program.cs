@@ -12,6 +12,8 @@ Wir haben C# benutzt. Warum? Ja das würde ich auch gerne wissen.sss
 using System;
 using System.Net;
 using System.IO;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace bwi40322 {
     class Program {
@@ -49,10 +51,15 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
  StreamWriter writer = new StreamWriter("aus-Sahler.csv");
 
  List<string> zeitpunkt = new List<string> ();
- List<string> gascbm = new List<string> ();
  List<string> stromkwh = new List<string> ();
- List<string> gaskwh = new List<string> ();
- List<string> temperatur = new List<string> ();
+
+ while (!reader2.EndOfStream)
+ {
+   string s =reader2.ReadLine();
+   string[] values = s.split(';');
+   string zeitpunkt = values[0];
+   string stromkwh = values[4];
+ }
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
