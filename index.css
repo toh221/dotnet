@@ -1,95 +1,84 @@
-.barchart-Wrapper {
-  display: table;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --background0: #12181b;
+  --background1: #22262f;
+  --text: #fff;
+}
+
+body {
+  background: var(--background0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.container {
+  background: var(--background1);
   position: relative;
-  margin: 20px 0;
-  height: 252px;
+  display: flex;
+  width: 400px;
+  align-items: flex-end;
+  height: 390px;
 }
-.barChart-Container {
-  display: table-cell;
-  width: 100%;
-  height: 100%;
-  padding-left: 15px;
-}
-.barchart {
- display: table;
- table-layout: fixed;
- height: 100%;
- width: 100%;
- border-bottom: 3px solid tomato;
-}
-.barchart-Col {
-  position: relative;
-  vertical-align: bottom;
-  display: table-cell;
-  height: 100%;
-}
-.barchart-Col + .barchart-Col {
-  border-left: 4px solid transparent;
-}
-.barchart-Bar {
-  position: relative;
-  height: 0;
-  transition: height 0.5s 2s;
-  width: 66px;
-  margin: auto;
-}
-.barchart-Bar:after {
-  content: attr(attr-height);
-  color: white;
+
+.percent {
+  background: var(--background1);
   position: absolute;
-  text-align: center;
-  width: 100%;
+  border-right: 2px solid var(--text);
+  color: var(--text);
+  width: 50px;
+  height: 390px;
+  display: flex;
+  padding-bottom: 20px;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.barchart-BarFooter {
-  position: absolute;
-  text-align: center;
-  height: 10%;
-  width: 100%;
-}
-.barchart-BarFooter h3 {
-  color: darkred;
-}
-.barchart-TimeCol {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-}
-.barchart-Time {
-  height: 25%;
-  vertical-align: middle;
-  position: relative;
-}
-.barchart-Time:after {
-  border-bottom: 3px solid black;
-  content: "";
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0em;
-}
-.barchart-TimeText {
-  position: absolute;
-  top: -8px;
-  z-index: 1;
-  background: white;
-  padding-right: 5px;
-  color: #4d4d4d;
+
+.percent span {
   font-size: 15px;
-  font-family: 'Avenir Medium';
+  height: 12px;
+  line-height: 12px;
+  text-align: right;
+  padding-right: 4px;
+  font-weight: 600;
 }
-.html-bar {
-  background-color: deepskyblue;
+
+.options {
+  position: relative;
+  left: 50px;
+  background: var(--background1);
+  width: 350px;
+  color: var(--text);
+  border-top: 2px solid var(--text);
+  display: flex;
+  justify-content: space-between;
 }
-.css-bar {
-  background-color: greenyellow;
+
+.option::after {
+  content: '';
+  position: absolute;
+  display: block;
+  bottom: 27px;
+  margin-left: 10px;
+  background: 
+  linear-gradient(#ff5b66,#ff8c38);
+  width: 40px;
 }
-.js-bar {
-  background-color: peachpuff;
+.option:nth-child(1)::after{
+  height: calc((363px / 100) * 50);
 }
-.python-bar {
-  background-color: darkolivegreen;
+.option:nth-child(2)::after{
+  height: calc((363px / 100) * 76);
 }
-.java-bar {
-  background-color: cornflowerblue;
+.option:nth-child(3)::after{
+  height: calc((363px / 100) * 25);
+}
+.option:nth-child(4)::after{
+  height: calc((363px / 100) * 100);
 }
