@@ -14,6 +14,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Drawing;
 
 namespace bwi40322 {
     class Program {
@@ -70,7 +71,7 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
 zeitpunkt.Add(timestamp);
 stromkwh.Add(strom);
 }
-//Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
+//Wenn isFirstLine true ist, ist die erste Zeile durchlaufen und kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
 else {
 isFirstLine = false;
 }
@@ -101,7 +102,4 @@ foreach(string zeitpunkt in zeitpunkt)
         }
         }
 }
-    
-        }
-        }
-}
+
