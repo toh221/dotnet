@@ -1,0 +1,83 @@
+
+/*Bar graph begins*/
+.bar-chart {
+  position: relative;
+  min-width: 10px;
+  min-height: 400px;
+  padding: 0;
+  margin: 0;
+  left: 30px;
+  max-width: 98%;
+}
+.bar-chart .container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  min-height: 400px;
+}
+.bar-chart .chart-column,
+.bar-chart [data-cp-size] {
+  flex-grow: 1;
+  align-self: flex-end;
+}
+.x-axis span{
+    cursor: pointer;
+   display:inline-block;
+   font-size:12px;
+}
+.bar-chart .chart-column,
+.bar-chart [data-cp-size]{
+  background: #42c2f4;
+  color: #ffffff;
+  list-style: none;
+  border-right: 1px solid #ffffff;
+  box-sizing: border-box;
+}
+
+.x-axis{
+    font-size:0;
+    position:relative;
+    top:400px;
+}
+.hr{
+    height:2px;
+    background-color:#000000;
+}
+.bar-chart{
+    border-left:2px solid #000000;
+}
+.x-axis{
+    width:100%;
+}
+.x-axis span{
+    text-align:center;
+}
+
+.bar-chart .y-axis {
+  position: absolute;
+  left: -35px;
+  top: 0;
+  bottom: 0;
+  width: 35px;
+  display: block
+}
+
+.bar-chart .y-axis .label {
+  position: relative;
+  left:0;
+  font-size: 12px;
+  font-weight: bold;
+  height: 39px;
+  border-top: 1px solid black;
+}
+
+/*Bar  graph ends*/
+
