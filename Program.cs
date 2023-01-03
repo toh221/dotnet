@@ -15,6 +15,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Drawing;
+using HtmlAgilityPack;
 
 namespace bwi40322 {
     class Program {
@@ -90,40 +91,48 @@ writer.Close();
 /* -------------------------------------------------- 
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
-HtmlDocument htmlDoc = new HtmlDocument();
+int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
+      { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
 
-int[] strommittel = new int[10,2];
+      HtmlDocument htmlDoc = new HtmlDocument();
 
-// Lade die HTML-Datei
-htmlDoc.Load("index.html");
+      // Lade die HTML-Datei
+      htmlDoc.Load("index.html");
 
-// Suche das ul-Element mit der Klasse "container"
-HtmlNode ulNode = htmlDoc.DocumentNode.SelectSingleNode("//ul[@class='container']");
+      // Suche das ul-Element mit der Klasse "container"
+      HtmlNode ulNode = htmlDoc.DocumentNode.SelectSingleNode("//ul[@class='container']");
 
-if (ulNode != null)
-{  
-   foreach(int daten in strommittel)
-    // Erstelle ein neues li-Element mit dem Wert "300" und dem data-cp-size Attribut
-    HtmlNode liNode = HtmlNode.CreateNode("<li data-cp-size='" +strommittel[daten,1]+ "'>" + strommitel[daten,1] + "</li>");
+      if (ulNode != null)
+      {
+        for (int i = 0; i < strommittel.GetLength(0); i++)
+        {
+          // Erstelle ein neues li-Element mit dem Wert "300" und dem data-cp-size Attribut
+          HtmlNode liNode = HtmlNode.CreateNode("<li data-cp-size='" + strommittel[i, 0] + "'>" + strommittel[i, 0] + "</li>");
 
-    // Füge das li-Element als letztes Kind des ul-Elements hinzu
-    ulNode.AppendChild(liNode);
+          // Füge das li-Element als letztes Kind des ul-Elements hinzu
+          ulNode.AppendChild(liNode);
+        }
+
+      }
+
+      // Suche das div-Element mit der Klasse "x-axis"
+      HtmlNode divNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='x-axis']");
+
+      if (divNode != null)
+      {
+
+        for (int i = 0; i < strommittel.GetLength(0); i++)
+        {
+          // Erstelle ein neues span-Element mit dem Wert "10"
+          HtmlNode spanNode = HtmlNode.CreateNode("<span>" + strommittel[i, 1] + "</span>");
+
+          // Füge das span-Element als letztes Kind des div-Elements hinzu
+          divNode.AppendChild(spanNode);
+        }
+      }
+      // Speichere die HTML-Datei
+      htmlDoc.Save("index.html");
+    }
+  }
 }
-
-// Suche das div-Element mit der Klasse "x-axis"
-HtmlNode divNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='x-axis']");
-
-if (divNode != null)
-{
-    // Erstelle ein neues span-Element mit dem Wert "10"
-    HtmlNode spanNode = HtmlNode.CreateNode("<span>"+ strommittel[daten,2] +"</span>");
-
-    // Füge das span-Element als letztes Kind des div-Elements hinzu
-    divNode.AppendChild(spanNode);
-}
-// Speichere die HTML-Datei
-htmlDoc.Save("index.html");
-        }
-        }
-        }
 
