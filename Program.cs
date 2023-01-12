@@ -51,7 +51,7 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
 -----------------------------------------------------*/ 
  StreamReader reader2 = new StreamReader("ein.csv");
 
- string[] zeitpunkt = new string[];
+ string[] int = new string[];
  double[] stromdouble = new double[];
  int zeile = 0;
 
@@ -63,27 +63,57 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
       string s =reader2.ReadLine();
       string[] values = s.split(';');
       string timestamp = values[0].split(',');
-      string timestamp_splitted = timestamp[1];
       string strom = values[4];
       
-      zeitpunkt[zeile] = timestamp[1];
+      zeitpunkt[zeile] = Convert.ToInt(timestamp[1]);
       stromdouble[zeile] = Convert.ToDouble(values[4].Replace(',', '.');
+      }
+      //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
+      else {
+      isFirstLine = false;
+      }
+      writer.WriteLine(extractedData);
    }
-//Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
-else {
-isFirstLine = false;
-}
-writer.WriteLine(extractedData);
- }
-catch (Exception e)
-   {
-      
-      continue;
-   }
+   catch (Exception e)
+      {
+         
+         continue;
+      }
    zeile++;
  }
 reader2.Close();
-writer.Close();
+
+int[] zeitpunkt_verdichtet = new string[];
+double[] strom_verdichtet = new double[];
+int z = 1;
+int z2 = 0;
+
+for (int i= 0; i < zeitpunkt.length; i++)
+{
+   if(i !=0)
+   {
+      if(zeitpunkt[i] != zeitpunkt[i-1])
+      {
+         zeitpunkt_verdichtet[z] = zeitpunkt[i];
+         strom_verdichtet[z] = stromdouble[i];
+      }
+   }
+   else
+   {
+      zeitpunkt_verdichtet[i] = zeitpunkt[i];
+      strom_verdichtet[i] = stromdouble[i];
+   }
+}
+
+double[] strommittel = new double[];
+for (int x = 0; x < zeitpunkt_verdichtet.length-1; x++)
+{
+   if(strom_verdichtet[x+1] != 0 && strom_verdichtet[x] != 0)
+   {
+      strommittel[x] = strom_verdichtet[x+1] - strom_verdichtet[x];
+   }
+}
+
 
 
 
