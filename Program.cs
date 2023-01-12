@@ -50,29 +50,26 @@ Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
  StreamReader reader2 = new StreamReader("ein.csv");
- StreamWriter writer = new StreamWriter("aus-Sahler.csv");
 
- List<string> zeitpunkt = new List<string> ();
- List<string> stromkwh = new List<string> ();
+ string[] zeitpunkt = new string[];
+ double[] stromdouble = new double[];
+ int zeile = 0;
 
  while (!reader2.EndOfStream)
  {
    try
    {
+      if (isFirstLine != true) {
+      string s =reader2.ReadLine();
+      string[] values = s.split(';');
+      string timestamp = values[0].split(',');
+      string timestamp_splitted = timestamp[1];
+      string strom = values[4];
       
-   
-   
-   string s =reader2.ReadLine();
-   string[] values = s.split(';');
-   string timestamp = values[0];
-   string strom = values[4];
-   string extractedData = timestamp + ";" + strom;
-   if (isFirstLine != true) {
-//Der Zeitstempel und die Temperatur werden in derjeweiligen Liste zwischengespeichert
-zeitpunkt.Add(timestamp);
-stromkwh.Add(strom);
-}
-//Wenn isFirstLine true ist, ist die erste Zeile durchlaufen und kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
+      zeitpunkt[zeile] = timestamp[1];
+      stromdouble[zeile] = Convert.ToDouble(values[4].Replace(',', '.');
+   }
+//Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
 else {
 isFirstLine = false;
 }
@@ -83,9 +80,13 @@ catch (Exception e)
       
       continue;
    }
+   zeile++;
  }
 reader2.Close();
 writer.Close();
+
+
+
 
  //strommittel @Fel1xVo 
 /* -------------------------------------------------- 
@@ -287,9 +288,9 @@ int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }
 
           // Füge das li-Element als letztes Kind des ul-Elements hinzu
           ulNode.AppendChild(liNode);
-        }
+   }
 
-      }
+        }
 
       // Suche das div-Element mit der Klasse "x-axis"
       HtmlNode divNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='x-axis']");
@@ -305,10 +306,10 @@ int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }
           // Füge das span-Element als letztes Kind des div-Elements hinzu
           divNode.AppendChild(spanNode);
         }
-      }
+}
       // Speichere die HTML-Datei
       htmlDoc.Save("index.html");
-    }
-  }
+        }
+        }
 }
 
