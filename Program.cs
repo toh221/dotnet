@@ -15,7 +15,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Drawing;
-using HtmlAgilityPack;
 
 namespace bwi40322 {
     class Program {
@@ -123,8 +122,10 @@ for (int x = 0; x < zeitpunkt_verdichtet.length-1; x++)
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
 // Part 1
-string htmlFilePath = "index.html";
-      string htmlContent = 
+      int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
+      { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
+      string htmlFilePath = "index.html";
+      string htmlContent =
               "<!DOCTYPE html>\n" +
               "<html>\n" +
               "<head>\n" +
@@ -138,9 +139,11 @@ string htmlFilePath = "index.html";
               "    <div>Bar chart</div>\n" +
               "    <div class=\"bar-chart\">\n" +
               "      <ul class=\"container\" id=\"diagramm1\">\n" +
+              AusgabeDatenwert(strommittel) +
               "      </ul>\n" +
               "      <div class='x-axis'>\n" +
               "        <div class='hr'></div>\n" +
+              AusgabeUeberschrift(strommittel) +
               "      </div>\n" +
               "      <div class=\"y-axis\"></div>\n" +
               "      <p>Es gibt <span id=\"count\">0</span> Elemente in diesem Diagramm</p>\n" +
@@ -297,49 +300,28 @@ string htmlFilePath = "index.html";
               " top: 420px; \n" +
               "}";
       File.WriteAllText(cssFilePath, cssContent);
-// Part 2
-int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
-      { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
-
-      HtmlDocument htmlDoc = new HtmlDocument();
-
-      // Lade die HTML-Datei
-      htmlDoc.Load("index.html");
-
-      // Suche das ul-Element mit der Klasse "container"
-      HtmlNode ulNode = htmlDoc.DocumentNode.SelectSingleNode("//ul[@class='container']");
-
-      if (ulNode != null)
+      // Part 2
+      string AusgabeDatenwert(int[,] strommittel)
       {
+        string datenwert = "";
         for (int i = 0; i < strommittel.GetLength(0); i++)
         {
-          // Erstelle ein neues li-Element mit dem Wert "300" und dem data-cp-size Attribut
-          HtmlNode liNode = HtmlNode.CreateNode("<li data-cp-size='" + strommittel[i, 0] + "'>" + strommittel[i, 0] + "</li>");
-
-          // Füge das li-Element als letztes Kind des ul-Elements hinzu
-          ulNode.AppendChild(liNode);
-   }
-
+          datenwert = datenwert + "<li data-cp-size='" + strommittel[i, 0] + "'>" + strommittel[i, 0] + "</li> \n";
         }
 
-      // Suche das div-Element mit der Klasse "x-axis"
-      HtmlNode divNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='x-axis']");
+        return datenwert;
+      }
 
-      if (divNode != null)
+      string AusgabeUeberschrift(int[,] strommittel)
       {
-
+        string ueberschrift = "";
         for (int i = 0; i < strommittel.GetLength(0); i++)
         {
-          // Erstelle ein neues span-Element mit dem Wert "10"
-          HtmlNode spanNode = HtmlNode.CreateNode("<span>" + strommittel[i, 1] + "</span>");
-
-          // Füge das span-Element als letztes Kind des div-Elements hinzu
-          divNode.AppendChild(spanNode);
+          ueberschrift = ueberschrift + "<span>" + strommittel[i, 1] + "</span> \n";
         }
-}
-      // Speichere die HTML-Datei
-      htmlDoc.Save("index.html");
-        }
+        return ueberschrift;
+      }
+    }
         }
 }
 
