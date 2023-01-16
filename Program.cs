@@ -103,7 +103,7 @@ for (int i= 0; i < zeitpunkt.Count; i++) //Die Liste der Zeitpunkte wird durchla
    }
 }
 
-string[,] strommittel = new string[zeitpunkt_verdichtet.Count, 2]; //Array, das Zeitstempel und Stromverbrauch zusammenführt
+string[,] strommittel = new string[zeitpunkt_verdichtet.Count-1, 2]; //Array, das Zeitstempel und Stromverbrauch zusammenführt
 double berechnung = 0;
 for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 {
