@@ -136,197 +136,108 @@ for(int i = 0; i<strommittel.length; i++)
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
 // Part 1
-      //int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
-     // { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
+      string[] strommitteldaten = new string[4] { "1", "Mittelwert des Stromverbrauchs", "Datum", "Stromverbrauch kwh" };
+
       string htmlFilePath = "index.html";
       string htmlContent =
               "<!DOCTYPE html>\n" +
               "<html>\n" +
               "<head>\n" +
-              "  <meta name=\"viewport\"\n" +
-              "    content=\"user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width\">\n" +
-              "  <link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n" +
-              "  <title>Chart</title>\n" +
+              "<meta name=\"viewport\"\n" +
+              "content=\"user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width\">\n" +
+              "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n" +
+              "<title>Chart</title>\n" +
               "</head>\n" +
               "<body>\n" +
-              "  <div>\n" +
-              "    <div>Bar chart</div>\n" +
-              "    <div class=\"bar-chart\">\n" +
-              "      <ul class=\"container\" id=\"diagramm1\">\n" +
-              AusgabeDatenwert(strommittel) +
-              "      </ul>\n" +
-              "      <div class='x-axis'>\n" +
-              "        <div class='hr'></div>\n" +
-              AusgabeUeberschrift(strommittel) +
-              "      </div>\n" +
-              "      <div class=\"y-axis\"></div>\n" +
-              "      <p>Es gibt <span id=\"count\">0</span> Elemente in diesem Diagramm</p>\n" +
-              "      <p>Die größte Nummer ist <span id=\"max\">0</span></p>\n" +
-              "      <p>Die kleinste Nummer ist <span id=\"min\">0</span></p>\n" +
-              "      <script>\n" +
-              "        // Elemente Anzahl\n" +
-              "        const elementCount = document.getElementsByTagName('li').length;\n" +
-              "        document.getElementById('count').innerHTML = elementCount;\n" +
-              "\n" +
-              "        // x Achse Elemente Style Anpassung\n" +
-              "        const elementsX = document.querySelectorAll('.x-axis span');\n" +
-              "\n" +
-              "        const widthX = (100 / elementCount) + '%';\n" +
-              "        for (let element of elementsX) {\n" +
-              "          element.style.width = widthX;\n" +
-              "        }\n" +
-              "\n" +
-              "        // Größte und kleinste Zahl herrausfinden\n" +
-              "        const div = document.querySelector('.bar-chart');\n" +
-              " const listItems = div.querySelectorAll('li');\n" +
-              " const numbers = [];\n" +
-              "\n" +
-              " for (const listItem of listItems) {\n" +
-              " const number = listItem.textContent;\n" +
-              " numbers.push(number);\n" +
-              " }\n" +
-              "\n" +
-              " numbers.sort((a, b) => b - a);\n" +
-              " const largestNumber = numbers[0];\n" +
-              " document.getElementById('max').innerHTML = largestNumber;\n" +
-              "\n" +
-              " numbers.sort((a, b) => a - b);\n" +
-              " const smallestNumber = numbers[0];\n" +
-              " document.getElementById('min').innerHTML = smallestNumber;\n" +
-              "\n" +
-              " //Höhe einstellen\n" +
-              " for (const item of listItems) {\n" +
-              " const number = item.innerHTML;\n" +
-              " const heightNumber = (number / largestNumber) * 100;\n" +
-              " const style = document.createElement('style');\n" +
-              " style.innerHTML = `.bar-chart .container [data-cp-size=\"${ number}\"] { height: ${heightNumber}%; }`;\n" +
-              " item.appendChild(style);\n" +
-              " }\n" +
-              " // Y Labels hinzufügen\n" +
-              " const interval = largestNumber / 10;\n" +
-              "\n" +
-              " for (let i = 10; i >= 0; i--) {\n" +
-              " const label = document.createElement('div');\n" +
-              " label.classList.add('label');\n" +
-              " label.textContent = i * interval;\n" +
-              " document.querySelector('.y-axis').appendChild(label);\n" +
-              " }\n" +
-              "\n" +
-              " </script>\n" +
-              " </div>\n" +
-              "\n" +
-              " </div>\n" +
-              "</body>\n" +
-              "\n" +
-              "</html>";
-      File.WriteAllText(htmlFilePath, htmlContent);
+              AusgabeTabelle(strommittel, strommitteldaten) +
+    "<script>" +
+      "ElementeAnzahl('1'); \n" +
+      "function ElementeAnzahl(nummer) {\n" +
+      "// Elemente Anzahl\n" +
+      "const elementCount = document.querySelectorAll('#diagramm' + nummer + ' li').length;\n" +
+      "document.getElementById('count' + nummer).innerHTML = elementCount;\n" +
+      "// Größte und kleinste Zahl herrausfinden\n" +
+      "const listItems = document.querySelectorAll('#diagramm' + nummer + ' li')\n" +
+      "const numbers = [];\n" +
+      "for (const listItem of listItems) {\n" +
+      "  const number = listItem.dataset.cpSize;\n" +
+      "  numbers.push(number);\n" +
+      "}\n" +
+      "numbers.sort((a, b) => b - a);\n" +
+      "const largestNumber = numbers[0];\n" +
+      "document.getElementById('max' + nummer).innerHTML = largestNumber;\n" +
 
+      "numbers.sort((a, b) => a - b);\n" +
+      "const smallestNumber = numbers[0];\n" +
+      "document.getElementById('min' + nummer).innerHTML = smallestNumber;\n" +
+
+      "//Höhe einstellen\n" +
+      "for (const item of listItems) {\n" +
+      "  const number = item.dataset.cpSize;\n" +
+      "  const heightNumber = (number / largestNumber) * 100;\n" +
+      "  const style = document.createElement('style');\n" +
+      "  style.innerHTML = `#${'diagramm' + nummer}.content [data-cp-size=\"${number}\"] { height: ${heightNumber}%; }`;\n" +
+      "  item.appendChild(style);\n" +
+      "}\n" +
+
+      "// x Achse Elemente Style Anpassung\n" +
+      "const elementsX = document.querySelectorAll('#diagramm' + nummer + ' span');\n" +
+      "const elements = document.querySelectorAll('#diagramm' + nummer + ' li');\n" +
+      "var widthElements = 0;\n" +
+      "for (var x = 0; x < elements.length; x++) {\n" +
+      "  widthElements = widthElements + elements[x].clientWidth;\n" +
+      "}\n" +
+      "for (var i = 0; i < elementsX.length; i++) {\n" +
+      "  var width = elements[i].clientWidth;\n" +
+      "  elementsX[i].style.width = (width / widthElements) * 100 + \"%\";\n" +
+      "}" +
+
+      "// Y Labels hinzufügen\n" +
+      "const interval = largestNumber / 10;\n" +
+
+      "for (let i = 10; i >= 1; i--) {\n" +
+      "  const label = document.createElement('div');\n" +
+      "  label.classList.add('label');\n" +
+      "  label.textContent = Math.floor(i * interval);\n" +
+      "  document.querySelector('#diagramm' + nummer + '.y-axis').appendChild(label);\n" +
+    "  }\n" +
+    "}\n" +
+    "</script>\n" +
+    "</html>\n";
+      File.WriteAllText(htmlFilePath, htmlContent);
       string cssFilePath = "styles.css";
       string cssContent =
-              ".bar-chart { \n" +
-              "  position: relative; \n" +
-              "  min-width: 10px; \n" +
-              "  min-height: 400px; \n" +
-              "  padding: 0; \n" +
-              "  margin: 0; \n" +
-              "  left: 30px; \n" +
-              "  max-width: 98%; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart .container { \n" +
-              "  display: flex; \n" +
-              "  flex-direction: row; \n" +
-              "  flex-wrap: nowrap; \n" +
-              "  position: absolute; \n" +
-              "  text-align: center; \n" +
-              "  top: 0; \n" +
-              "  left: 0; \n" +
-              "  bottom: 0; \n" +
-              "  right: 0; \n" +
-              "  padding: 0; \n" +
-              "  margin: 0; \n" +
-              "  min-height: 400px; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart .chart-column, \n" +
-              ".bar-chart [data-cp-size] { \n" +
-              "  flex-grow: 1; \n" +
-              "  align-self: flex-end; \n" +
-              "} \n" +
-              "\n" +
-              ".x-axis span { \n" +
-              "  cursor: pointer; \n" +
-              "  display: inline-block; \n" +
-              "  font-size: 12px; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart .chart-column, \n" +
-              ".bar-chart [data-cp-size] { \n" +
-              "  background: #42c2f4; \n" +
-              " color: #ffffff; \n" +
-              " list-style: none; \n" +
-              " border-right: 1px solid #ffffff; \n" +
-              " box-sizing: border-box; \n" +
-              "} \n" +
-              "\n" +
-              ".x-axis { \n" +
-              " font-size: 0; \n" +
-              " position: relative; \n" +
-              " top: 400px; \n" +
-              "}\n" +
-              ".hr { \n" +
-              " height: 2px; \n" +
-              " background-color: #000000; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart { \n" +
-              " border-left: 2px solid #000000; \n" +
-              "} \n" +
-              "\n" +
-              ".x-axis { \n" +
-              " width: 100%; \n" +
-              "} \n" +
-              "\n" +
-              ".x-axis span { \n" +
-              " text-align: center; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart .y-axis { \n" +
-              " position: absolute; \n" +
-              " left: -35px; \n" +
-              " top: 0; \n" +
-              " bottom: 0; \n" +
-              " width: 35px; \n" +
-              " display: block; \n" +
-              "} \n" +
-              "\n" +
-              ".bar-chart .y-axis .label { \n" +
-              " position: relative; \n" +
-              " left: 0; \n" +
-              " font-size: 12px; \n" +
-              " font-weight: bold; \n" +
-              " height: 39px; \n" +
-              " border-top: 1px solid black; \n" +
-              "} \n" +
-              "\n" +
-              "p { \n" +
-              " position: relative; \n" +
-              " top: 420px; \n" +
-              "}";
+      ".bar-chart { position: relative; min-width: 10px; min-height: 400px; padding: 0; margin: 0; left: 40px; max-width: 800px; } \n" +
+      ".bar-chart .content { display: flex; flex-direction: row; flex-wrap: nowrap; position: absolute; text-align: center; top: 0; left: 0; bottom: 0; right: 0; padding: 0; margin: 0; min-height: 400px; }\n" +
+      ".bar-chart .chart-column, .bar-chart [data-cp-size] { flex-grow: 1; align-self: flex-end; }\n" +
+      ".x-axis span { cursor: pointer; display: inline-block; font-size: 12px; height: 10px; }\n" +
+      ".bar-chart .chart-column, .bar-chart [data-cp-size] { min-width: 10px; background: #FFBF00; list-style: none; border-right: 1px solid #ffffff; box-sizing: border-box; }\n" +
+      ".x-axis { font-size: 0; position: relative; top: 400px; }\n" +
+      ".hr { height: 2px; background-color: #000000; }\n" +
+      ".bar-chart { border-left: 2px solid #000000; }\n" +
+      ".x-axis { width: 100%; }\n" +
+      ".x-axis span { transform: rotate(90deg); text-align: center; margin-top: 4px;}\n" +
+      ".bar-chart .y-axis { position: absolute; left: -40px; top: 0; width: 40px; display: block; height: 400px; }\n" +
+      ".bar-chart .y-axis .label { font-size: 10px; box-sizing: border-box; position: relative; left: 0; font-weight: bold; height: 40px; border-top: 1px solid black; border-bottom: 1px solid black; }\n" +
+      "p { position: relative; top: 420px; }\n" +
+      "h5 { position: relative; }\n" +
+      ".beschriftung-x { position: relative; left: 800px; top: 380px; height: 2px; }\n" +
+      ".abstand { height: 180px; border-bottom: 1px solid #000000; }\n";
       File.WriteAllText(cssFilePath, cssContent);
+      Process.Start("C:/Users/Felix/Desktop/app/index.html");
       // Part 2
-      string AusgabeDatenwert(int[,] strommittel)
+      string AusgabeDatenwert(string[,] strommittel)
       {
         string datenwert = "";
         for (int i = 0; i < strommittel.GetLength(0); i++)
         {
-          datenwert = datenwert + "<li data-cp-size='" + strommittel[i, 0] + "'>" + strommittel[i, 0] + "</li> \n";
+          datenwert = datenwert + "<li data-cp-size='" + strommittel[i, 0] + "'>" + "</li> \n";
         }
 
         return datenwert;
       }
 
-      string AusgabeUeberschrift(int[,] strommittel)
+      string AusgabeUeberschrift(string[,] strommittel)
       {
         string ueberschrift = "";
         for (int i = 0; i < strommittel.GetLength(0); i++)
@@ -335,7 +246,32 @@ for(int i = 0; i<strommittel.length; i++)
         }
         return ueberschrift;
       }
-    }
+
+      string AusgabeTabelle(string[,] daten, string[] datenname)
+      {
+        string ausgabe =
+                "  <div>\n" +
+                "    <div class=\"ueberschrift\" id=\"diagramm" + datenname[0] + "\">" + datenname[1] + "</div>\n" +
+                "    <div class=\"beschriftung-y\" id=\"diagramm" + datenname[0] + "\">" + datenname[3] + "</div>\n" +
+                "    <div class=\"bar-chart\">\n" +
+                "      <ul class=\"content\" id=\"diagramm" + datenname[0] + "\">\n" +
+                AusgabeDatenwert(daten) +
+                " </ul>\n" +
+                " <div class='x-axis' id='diagramm" + datenname[0] + "'>\n" +
+                " <div class='hr' id='diagramm" + datenname[0] + "'></div>\n" +
+                AusgabeUeberschrift(daten) +
+                " </div>\n" +
+                " <span class='beschriftung-x' id='diagramm" + datenname[0] + "'>" + datenname[2] + "</span>\n" +
+                " <div class='y-axis' id='diagramm" + datenname[0] + "'></div>\n" +
+                "<p>Es gibt <span id=\"count" + datenname[0] + "\">0</span> Elemente in diesem Diagramm</p>\n" +
+                " <p>Die größte Nummer ist <span id='max" + datenname[0] + "'>0</span></p>\n" +
+                " <p>Die kleinste Nummer ist <span id='min" + datenname[0] + "'>0</span></p>\n" +
+                " </div>\n" +
+                " </div>\n" +
+                "\n" +
+                " <div class='abstand'></div>\n";
+        return ausgabe;
+      }
         }
 }
 
