@@ -67,11 +67,18 @@ else
       string[] values = s.Split(';'); //Die duch Kommata getrennten Werte der csv-Datei werden aufgespalten.
       string[] timestamp = values[0].Split(','); //Der zeitstempel wird auf den Tag eingekürzt
       
-      zeitpunkt.Add(timestamp[0]);
-      stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.'))); //Der Wert des Stromzählers wird zur weiteren verwendung umformatiert.
+      if(String.IsNullOrEmpty(values[4]))
+      {
+         continue;
+      }
+      else{
+         zeitpunkt.Add(timestamp[0]);
+       stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.'))); //Der Wert des Stromzählers wird zur weiteren verwendung umformatiert.
+      }
       }
       //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
       else {
+         reader2.ReadLine();
       isFirstLine = false;
       }
    }
@@ -120,9 +127,10 @@ for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 }
 
 //Die ermittelten Stromverbräuche werden nun in "kennzahlen.txt" geschrieben.
-StreamWriter writer = new StreamWriter("kennzahlen.txt") 
+StreamWriter writer = new StreamWriter("kennzahlen.txt");
 writer.WriteLine("Zeitstempel, Stromverbrauch");
-for(int i = 0; i<strommittel.Length; i++)
+int vivo =strommittel.GetLength(0);
+for(int i = 0; i<strommittel.GetLength(0); i++)
 {
    string zeile = strommittel[i, 0] + strommittel[i, 1];
    writer.WriteLine(zeile);
@@ -275,3 +283,4 @@ for(int i = 0; i<strommittel.Length; i++)
         }
 }
 
+}
