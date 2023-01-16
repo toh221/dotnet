@@ -65,15 +65,14 @@ else
       if (isFirstLine != true) { //die erste Zeile wird übersprungen, da dort keine (nutzbaren) Werte vorhanden sind
       string s = reader2.ReadLine(); //Die ausgelesene Zeile wird als String zwischengespeichert
       string[] values = s.Split(';'); //Die duch Kommata getrennten Werte der csv-Datei werden aufgespalten.
-      string[] timestamp = values[0].Split(','); //Der zeitstempel wird auf den Tag eingekürzt
+      string[] timestamp = values[1].Split(','); //Der zeitstempel wird auf den Tag eingekürzt
       
-      if(String.IsNullOrEmpty(values[4]))
+      if(String.IsNullOrEmpty(values[3]))
       {
-         continue;
       }
       else{
          zeitpunkt.Add(timestamp[0]);
-       stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.'))); //Der Wert des Stromzählers wird zur weiteren verwendung umformatiert.
+       stromdouble.Add(Convert.ToDouble(values[3].Replace(',', '.'))); //Der Wert des Stromzählers wird zur weiteren verwendung umformatiert.
       }
       }
       //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
@@ -115,10 +114,13 @@ double berechnung = 0;
 for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 {
    strommittel[x, 0] = zeitpunkt_verdichtet[x]; //Zeitstempel wird in die erste Spalte geschrieben
-   if(strom_verdichtet[x+1] != 0 && strom_verdichtet[x] != 0) //Es wird überprüft, ob einer der beiden Werte 0 ist.
+   if(strom_verdichtet[x+1] != 0 & strom_verdichtet[x] != 0) //Es wird überprüft, ob einer der beiden Werte 0 ist.
    {
+      if(x != 0 && strom_verdichtet[x-1] !=0)
+      {
       berechnung = strom_verdichtet[x+1] - strom_verdichtet[x]; //Stromverbrauch wird aus aktuellem Zählerstand und nachfolgendem Eintrag berechnet
       strommittel[x, 1] = berechnung.ToString(); //Stromverbrauch wird in die zweite Spalte geschrieben
+      }
    }
    else
    {
@@ -129,11 +131,13 @@ for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 //Die ermittelten Stromverbräuche werden nun in "kennzahlen.txt" geschrieben.
 StreamWriter writer = new StreamWriter("kennzahlen.txt");
 writer.WriteLine("Zeitstempel, Stromverbrauch");
+int vivo = strommittel.GetLength(0);
 for(int i = 0; i<strommittel.GetLength(0); i++)
 {
-   string zeile = strommittel[i, 0] + strommittel[i, 1];
+   string zeile = strommittel[i, 0] + ", " + strommittel[i, 1];
    writer.WriteLine(zeile);
 }
+writer.Close();
 
 
 
