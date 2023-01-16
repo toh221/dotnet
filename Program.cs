@@ -30,8 +30,8 @@ namespace bwi40322
       //Konsolenausgabe
       Console.WriteLine("-------Programm wrid gestartet\n-------");
 
-      WebClient client = new WebClient();
-      string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv";
+      WebClient client = new WebClient(); 
+      string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv"; //vorgegebene URL
 
       //Konsolenausgabe, um den Nutzer ueber den aktuellen Status zu informieren
       Console.WriteLine("Die Daten werden vom Webservice geladen...\n");
@@ -85,12 +85,12 @@ namespace bwi40322
           //Der zeitstempel wird auf den Tag eingekürzt
           string[] timestamp = values[1].Split(',');
 
-          if (String.IsNullOrEmpty(values[3])) { }
+          if (String.IsNullOrEmpty(values[3])) { } //unvollständige Wertepaare werden übersprungen.
           else
           {
             zeitpunkt.Add(timestamp[0]);
             //Der Wert des Stromzaehlers wird zur weiteren verwendung umformatiert.
-            stromdouble.Add(Convert.ToDouble(values[3]));
+            stromdouble.Add(Convert.ToDouble(values[3])); //Werte werden in double konvertiert.
           }
         }
         //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
