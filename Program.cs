@@ -124,7 +124,7 @@ StreamWriter writer = new StreamWriter("kennzahlen.txt")
 writer.WriteLine("Zeitstempel, Stromverbrauch");
 for(int i = 0; i<strommittel.length; i++)
 {
-   string zeile = strommittel[i][0] + strommittel[i][1];
+   string zeile = strommittel[i, 0] + strommittel[i, 1];
    writer.WriteLine(zeile);
 }
 
