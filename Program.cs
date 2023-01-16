@@ -125,7 +125,7 @@ namespace bwi40322
           strom_verdichtet.Add(stromdouble[i]);
         }
       }
-      Console.WriteLine("Daten verdichtet.");
+      Console.WriteLine("Daten selektiert.");
 
       //Array, das Zeitstempel und Stromverbrauch zusammenführt
       string[,] strommittel = new string[zeitpunkt_verdichtet.Count - 1, 2];
