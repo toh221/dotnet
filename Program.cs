@@ -105,7 +105,7 @@ for (int i= 0; i < zeitpunkt.length; i++)
    }
 }
 
-string[][] strommittel = new string[][];
+string[,] strommittel = new string[];
 for (int x = 0; x < zeitpunkt_verdichtet.length-1; x++)
 {
    strommittel[x][0] = zeitpunkt_verdichtet[x];
@@ -128,8 +128,8 @@ for (int x = 0; x < zeitpunkt_verdichtet.length-1; x++)
    Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
 -----------------------------------------------------*/
 // Part 1
-      int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
-      { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
+      //int[,] strommittel = new int[10, 2] { { 20, 1 }, { 40, 2 }, { 60, 3 }, { 80, 4 }, { 100, 5 }, { 120, 6 },
+     // { 140, 7 }, { 160, 8 }, { 180, 9 }, { 200, 10 } };
       string htmlFilePath = "index.html";
       string htmlContent =
               "<!DOCTYPE html>\n" +
