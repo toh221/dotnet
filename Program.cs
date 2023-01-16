@@ -125,6 +125,7 @@ namespace bwi40322
           strom_verdichtet.Add(stromdouble[i]);
         }
       }
+      Console.WriteLine("Daten verdichtet.");
 
       //Array, das Zeitstempel und Stromverbrauch zusammenführt
       string[,] strommittel = new string[zeitpunkt_verdichtet.Count - 1, 2];
@@ -141,7 +142,8 @@ namespace bwi40322
 
       }
 
-      //strommittel @Fel1xVo 
+      Console.WriteLine("Datenpaare gebildet.");
+
       /* -------------------------------------------------- 
          Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
       -----------------------------------------------------*/
@@ -155,6 +157,8 @@ namespace bwi40322
         writer.WriteLine(zeile);
       }
       writer.Close();
+
+      Console.WriteLine("Kennzahlen.txt erstellt.")
 
       // Ein String mit den Beschriftungen der Tabelle sowie der Tabellennummer wird erzeugt
       string[] strommitteldaten = new string[4] {
