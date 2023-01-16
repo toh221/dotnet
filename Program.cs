@@ -153,10 +153,10 @@ namespace bwi40322
       writer.WriteLine("Zeitstempel, Stromverbrauch");
       for (int i = 0; i < strommittel.GetLength(0); i++)
       {
-        string zeile = strommittel[i, 0] + ", " + strommittel[i, 1];
-        writer.WriteLine(zeile);
+        string zeile = strommittel[i, 0] + ", " + strommittel[i, 1]; //Zeitpunkt und Verbrauch werden in eine Zeile geschrieben.
+        writer.WriteLine(zeile); //Zeile wird in Datei geschrieben.
       }
-      writer.Close();
+      writer.Close(); //Writer wird wieder geschlossen.
 
       Console.WriteLine("Kennzahlen.txt erstellt.")
 
