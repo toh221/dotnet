@@ -36,9 +36,9 @@ StreamReader reader = new StreamReader(data); //es wird ein StreamReader geöffn
 -----------------------------------------------------*/ 
 
 string sData = reader.ReadToEnd();
-File.WriteAllText("ein.csv", sData); //die eingelesenen Daten werden in die Datei "ein.csv" geschrieben
+File.WriteAllText("ein.txt", sData); //die eingelesenen Daten werden in die Datei "ein.csv" geschrieben
 
-if(File.Exists("ein.csv")) //es wird überprüft, ob die Datei erfolgreich erstellt wurde
+if(File.Exists("ein.txt")) //es wird überprüft, ob die Datei erfolgreich erstellt wurde
 {
    Console.WriteLine("Datei erfolgreich erstellt.\n");
 }
@@ -50,7 +50,7 @@ else
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
- StreamReader reader2 = new StreamReader("ein.csv"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
+ StreamReader reader2 = new StreamReader("ein.txt"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
 
 
  List<string> zeitpunkt = new List<string>();
@@ -130,6 +130,13 @@ for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
    }
 }
 
+StreamWriter writer = new StreamWriter("kennzahlen.txt")
+writer.WriteLine("Zeitstempel, Stromverbrauch");
+for(int i = 0; i<strommittel.length; i++)
+{
+   string zeile = strommittel[i][0] + strommittel[i][1];
+   writer.WriteLine(zeile);
+}
 
 
 
