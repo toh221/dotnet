@@ -26,32 +26,34 @@ namespace bwi40322 {
 -----------------------------------------------------*/ 
 
 WebClient client = new WebClient();
-string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv";
+string url = "https://cbrell.de/bwi403/demo/ZaehlerstandExport.csv"; 
 
 Stream data = client.OpenRead(url);
-StreamReader reader = new StreamReader(data);
+StreamReader reader = new StreamReader(data); //es wird ein StreamReader geöffnet um die Daten einzulesen.
  
 /* -------------------------------------------------- 
    Stage 2: Daten von Lokal laden und aufbereiten 
 -----------------------------------------------------*/ 
 
 string sData = reader.ReadToEnd();
-File.WriteAllText("ein.csv", sData);
+File.WriteAllText("ein.csv", sData); //die eingelesenen Daten werden in die Datei "ein.csv" geschrieben
 
- if(File.Exists("ein.csv")) {
-Console.WriteLine("Die Datei ein.csv wurde erstellt.\n");
+if(File.Exists("ein.csv")) //es wird überprüft, ob die Datei erfolgreich erstellt wurde
+{
+   Console.WriteLine("Datei erfolgreich erstellt.\n");
 }
-else {
-Console.WriteLine("Die Datei ein.csv ist nicht vorhanden.\n");
+else 
+{
+   Console.WriteLine("Datei nicht vorhanden.\n");
 }
 
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
- StreamReader reader2 = new StreamReader("ein.csv");
+ StreamReader reader2 = new StreamReader("ein.csv"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
 
- string[] zeitpunkt = new string[];
- double[] stromdouble = new double[];
+ string[] zeitpunkt = new string[]; //Array, das die Zeitpunkte speichert
+ double[] stromdouble = new double[]; //Array, das die Zählerstände des Stroms speichert
  int zeile = 0;
 
  while (!reader2.EndOfStream)
