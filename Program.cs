@@ -157,7 +157,7 @@ namespace bwi40322 {
 
          // Es wird überprueft, ob die Datei erfolgreich erstellt wurde
          if (File.Exists("kennzahlen.txt")) {
-            Console.WriteLine("Die Datei Namens Kennzahlen.txt wurde erfolgreich erstellt.\n");
+            Console.WriteLine("Die Datei Namens kennzahlen.txt wurde erfolgreich erstellt.\n");
          } else {
             Console.WriteLine("Datei nicht vorhanden.\n");
          }
@@ -181,7 +181,7 @@ namespace bwi40322 {
             "<head>\n" +
             "<meta name=\"viewport\"\n" +
             "content=\"user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width\">\n" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\">\n" +
             "<title>Mittlerer Stromverbauch pro Tag</title>\n" +
             "</head>\n" +
             // Ab hier fängt die Hauptkomponente der HTML datei an
@@ -257,7 +257,7 @@ namespace bwi40322 {
          File.WriteAllText(htmlFilePath, htmlContent);
 
          // Der Name der CSS Datei
-         string cssFilePath = "styles.css";
+         string cssFilePath = "index.css";
 
          // Dieser String enthaelt die gesamte CSS Datei
          string cssContent =
@@ -317,7 +317,7 @@ namespace bwi40322 {
                // Konvertieren des Zeitstempels in einen int-Wert
                int timestampInt = int.Parse(strommittel[i, 0]);
 
-               // Erstellen eines neuen DateTime-Objekts mit dem Zeitstempelwert + 1. Januar 1900
+               // Erstellen eines neuen DateTime-Objekts mit dem Zeitstempelwert + 30. Dezember 1899 da die Kovertierung dies verlangt
                DateTime date = new DateTime(1899, 12, 30).AddDays(timestampInt);
 
                // Formatieren des Datums im gewünschten Format
