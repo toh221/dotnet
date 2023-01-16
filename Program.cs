@@ -122,7 +122,7 @@ for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 //Die ermittelten Stromverbräuche werden nun in "kennzahlen.txt" geschrieben.
 StreamWriter writer = new StreamWriter("kennzahlen.txt") 
 writer.WriteLine("Zeitstempel, Stromverbrauch");
-for(int i = 0; i<strommittel.length; i++)
+for(int i = 0; i<strommittel.Length; i++)
 {
    string zeile = strommittel[i, 0] + strommittel[i, 1];
    writer.WriteLine(zeile);
