@@ -52,27 +52,28 @@ else
 -----------------------------------------------------*/ 
  StreamReader reader2 = new StreamReader("ein.csv"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
 
- string[] zeitpunkt = new string[]; //Array, das die Zeitpunkte speichert
- double[] stromdouble = new double[]; //Array, das die Zählerstände des Stroms speichert
+
+ List<string> zeitpunkt = new List<string>();
+ List<double> stromdouble = new List<double>(); //Array, das die Zählerstände des Stroms speichert
  int zeile = 0;
+ Boolean isFirstLine = true;
 
  while (!reader2.EndOfStream)
  {
    try
    {
       if (isFirstLine != true) {
-      string s =reader2.ReadLine();
-      string[] values = s.split(';');
-      string timestamp = values[0].split(',');
+      string s = reader2.ReadLine();
+      string[] values = s.Split(';');
+      string[] timestamp = values[0].Split(',');
       
-      zeitpunkt[zeile] = timestamp[1];
-      stromdouble[zeile] = Convert.ToDouble(values[4].Replace(',', '.'));
+      zeitpunkt.Add(timestamp[0]);
+      stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.')));
       }
       //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
       else {
       isFirstLine = false;
       }
-      writer.WriteLine(extractedData);
    }
    catch (Exception e)
       {
@@ -83,39 +84,49 @@ else
  }
 reader2.Close();
 
-string[] zeitpunkt_verdichtet = new string[];
-double[] strom_verdichtet = new double[];
-int z = 1;
+List<string> zeitpunkt_verdichtet = new List<string>();
+List<double> strom_verdichtet = new List<double>();
 
-for (int i= 0; i < zeitpunkt.length; i++)
+//string[] zeitpunkt_verdichtet = new string[];
+//double[] strom_verdichtet = new double[];
+//int z = 1;
+
+for (int i= 0; i < zeitpunkt.Count; i++)
 {
    if(i !=0)
    {
       if(!zeitpunkt[i].Equals(zeitpunkt[i-1])) 
       {
-         zeitpunkt_verdichtet[z] = zeitpunkt[i];
-         strom_verdichtet[z] = stromdouble[i];
-         z++;
+        zeitpunkt_verdichtet.Add(zeitpunkt[i]);
+        strom_verdichtet.Add(stromdouble[i]);
+
+         //zeitpunkt_verdichtet[z] = zeitpunkt[i];
+        // strom_verdichtet[z] = stromdouble[i];
+        // z++;
       }
    }
    else
    {
-      zeitpunkt_verdichtet[i] = zeitpunkt[i];
-      strom_verdichtet[i] = stromdouble[i];
+        zeitpunkt_verdichtet.Add(zeitpunkt[i]);
+        strom_verdichtet.Add(stromdouble[i]);
+      //zeitpunkt_verdichtet[i] = zeitpunkt[i];
+      //strom_verdichtet[i] = stromdouble[i];
    }
 }
 
-string[,] strommittel = new string[];
-for (int x = 0; x < zeitpunkt_verdichtet.length-1; x++)
+string[,] strommittel = new string[zeitpunkt_verdichtet.Count, 2];
+double berechnung = 0;
+for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 {
-   strommittel[x][0] = zeitpunkt_verdichtet[x];
+   strommittel[x, 0] = zeitpunkt_verdichtet[x];
    if(strom_verdichtet[x+1] != 0 && strom_verdichtet[x] != 0)
    {
-      strommittel[x][1] = strom_verdichtet[x+1] - strom_verdichtet[x];
+    berechnung = strom_verdichtet[x+1] - strom_verdichtet[x];
+      strommittel[x, 1] = berechnung.ToString();
    }
    else
    {
-      strommittel[x][1] = 0;
+      strommittel[x, 1] = "0";
    }
 }
 
