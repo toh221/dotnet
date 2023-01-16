@@ -142,7 +142,7 @@ namespace bwi40322
 
       }
 
-      Console.WriteLine("Datenpaare gebildet.");
+      Console.WriteLine("Es wurden " + strommittel.GetLength(0) + "Datenpaare gebildet.");
 
       /* -------------------------------------------------- 
          Stage 4: Ausgaben / Visualisierung erzeugen und speichern 
