@@ -1,12 +1,13 @@
 
 /************************************* 
-Fertigstellung:   <Datum, wann Sie fertig geworden sind> 
+Fertigstellung:   16.01.2023
 Bearbeiter(in) 1:  Vo, Felix, 1347526
 Bearbeiter(in) 2:  Hueben, Tobias, 1370737
 ***************************************/ 
 
 /*
-Wir haben C# benutzt. Warum? Ja das würde ich auch gerne wissen.sss
+Wir haben C# für unser Projekt benutzt. Dies ist auf den trivialen Grund zurückzuführen, 
+dass wir uns bisher häufiger mit C# als mit Python beschäftig haben und somit sicherer im Umgang waren.
 */
 
 using System;
@@ -36,9 +37,9 @@ StreamReader reader = new StreamReader(data); //es wird ein StreamReader geöffn
 -----------------------------------------------------*/ 
 
 string sData = reader.ReadToEnd();
-File.WriteAllText("ein.txt", sData); //die eingelesenen Daten werden in die Datei "ein.csv" geschrieben
+File.WriteAllText("ein.csv", sData); //die eingelesenen Daten werden in die Datei "ein.csv" geschrieben
 
-if(File.Exists("ein.txt")) //es wird überprüft, ob die Datei erfolgreich erstellt wurde
+if(File.Exists("ein.csv")) //es wird überprüft, ob die Datei erfolgreich erstellt wurde
 {
    Console.WriteLine("Datei erfolgreich erstellt.\n");
 }
@@ -50,25 +51,24 @@ else
 /* -------------------------------------------------- 
    Stage 3: Daten transformieren, Kennzahl(en) erzeugen 
 -----------------------------------------------------*/ 
- StreamReader reader2 = new StreamReader("ein.txt"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
+ StreamReader reader2 = new StreamReader("ein.csv"); //Es wird ein StreamReader erstellt, der "ein.csv" einlesen soll
 
 
- List<string> zeitpunkt = new List<string>();
- List<double> stromdouble = new List<double>(); //Array, das die Zählerstände des Stroms speichert
- int zeile = 0;
+ List<string> zeitpunkt = new List<string>(); //Liste, die Zeitstempel speichert
+ List<double> stromdouble = new List<double>(); //Liste, die die Zählerstände des Stroms speichert
  Boolean isFirstLine = true;
 
- while (!reader2.EndOfStream)
+ while (!reader2.EndOfStream) //Der Datenstrom wird vollständig durchlaufen
  {
    try
    {
-      if (isFirstLine != true) {
-      string s = reader2.ReadLine();
-      string[] values = s.Split(';');
-      string[] timestamp = values[0].Split(',');
+      if (isFirstLine != true) { //die erste Zeile wird übersprungen, da dort keine (nutzbaren) Werte vorhanden sind
+      string s = reader2.ReadLine(); //Die ausgelesene Zeile wird als String zwischengespeichert
+      string[] values = s.Split(';'); //Die duch Kommata getrennten Werte der csv-Datei werden aufgespalten.
+      string[] timestamp = values[0].Split(','); //Der zeitstempel wird auf den Tag eingekürzt
       
       zeitpunkt.Add(timestamp[0]);
-      stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.')));
+      stromdouble.Add(Convert.ToDouble(values[4].Replace(',', '.'))); //Der Wert des Stromzählers wird zur weiteren verwendung umformatiert.
       }
       //Wenn isFirstLine true ist, ist die erste Zeile durchlaufenund kann auf false gesetzt werden, um so die erste Zeile zu ueberspringen
       else {
@@ -80,57 +80,47 @@ else
          
          continue;
       }
-   zeile++;
  }
 reader2.Close();
 
-List<string> zeitpunkt_verdichtet = new List<string>();
-List<double> strom_verdichtet = new List<double>();
+List<string> zeitpunkt_verdichtet = new List<string>(); //Liste, die Zeitstempel speichert
+List<double> strom_verdichtet = new List<double>(); //Liste, die Stromzählerstände speichert
 
-//string[] zeitpunkt_verdichtet = new string[];
-//double[] strom_verdichtet = new double[];
-//int z = 1;
-
-for (int i= 0; i < zeitpunkt.Count; i++)
+for (int i= 0; i < zeitpunkt.Count; i++) //Die Liste der Zeitpunkte wird durchlaufen
 {
    if(i !=0)
    {
-      if(!zeitpunkt[i].Equals(zeitpunkt[i-1])) 
+      if(!zeitpunkt[i].Equals(zeitpunkt[i-1])) //Es wird überprüft, ob für den Zeitstempel (Tag) schon ein Eintrag vorhanden ist
       {
         zeitpunkt_verdichtet.Add(zeitpunkt[i]);
         strom_verdichtet.Add(stromdouble[i]);
-
-         //zeitpunkt_verdichtet[z] = zeitpunkt[i];
-        // strom_verdichtet[z] = stromdouble[i];
-        // z++;
       }
    }
-   else
+   else // Der Vergleich der Daten entfällt für die erste zeile
    {
         zeitpunkt_verdichtet.Add(zeitpunkt[i]);
         strom_verdichtet.Add(stromdouble[i]);
-      //zeitpunkt_verdichtet[i] = zeitpunkt[i];
-      //strom_verdichtet[i] = stromdouble[i];
    }
 }
 
-string[,] strommittel = new string[zeitpunkt_verdichtet.Count, 2];
+string[,] strommittel = new string[zeitpunkt_verdichtet.Count, 2]; //Array, das Zeitstempel und Stromverbrauch zusammenführt
 double berechnung = 0;
 for (int x = 0; x < zeitpunkt_verdichtet.Count-1; x++)
 {
-   strommittel[x, 0] = zeitpunkt_verdichtet[x];
-   if(strom_verdichtet[x+1] != 0 && strom_verdichtet[x] != 0)
+   strommittel[x, 0] = zeitpunkt_verdichtet[x]; //Zeitstempel wird in die erste Spalte geschrieben
+   if(strom_verdichtet[x+1] != 0 && strom_verdichtet[x] != 0) //Es wird überprüft, ob einer der beiden Werte 0 ist.
    {
-    berechnung = strom_verdichtet[x+1] - strom_verdichtet[x];
-      strommittel[x, 1] = berechnung.ToString();
+      berechnung = strom_verdichtet[x+1] - strom_verdichtet[x]; //Stromverbrauch wird aus aktuellem Zählerstand und nachfolgendem Eintrag berechnet
+      strommittel[x, 1] = berechnung.ToString(); //Stromverbrauch wird in die zweite Spalte geschrieben
    }
    else
    {
-      strommittel[x, 1] = "0";
+      strommittel[x, 1] = "0"; //Ist einer der beiden Operanden 0, wird 0 als Stromverbrauch angenommen
    }
 }
 
-StreamWriter writer = new StreamWriter("kennzahlen.txt")
+//Die ermittelten Stromverbräuche werden nun in "kennzahlen.txt" geschrieben.
+StreamWriter writer = new StreamWriter("kennzahlen.txt") 
 writer.WriteLine("Zeitstempel, Stromverbrauch");
 for(int i = 0; i<strommittel.length; i++)
 {
